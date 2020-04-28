@@ -65,3 +65,60 @@ for (var i = 0; i < b.length; i++) {
         console.log('This is some type- ' + b[i]);
     };
 };
+
+
+// task 8 
+
+var myArr5 = [
+    {
+        id: 1,
+        message: 'Test',
+        isHidden: false
+    },
+    {
+        id: 2,
+        message: 'Test2',
+        isHidden: true
+    },
+    {
+        id: 3,
+        message: 'Test3',
+        isHidden: false
+    },
+    {
+        id: 4,
+        message: 'Test4',
+        isHidden: true
+    },
+];
+
+
+for (var i = 0; i < myArr5.length; i++) {
+    if (myArr5[i].isHidden !== true) {
+        console.log('message- ' + myArr5[i].message);
+    }
+};
+
+
+
+
+// task 9
+
+
+
+
+
+
+// task 10
+
+var myArr6 = ['winter','summer','autumn','spring','column'] ;
+
+for (var i = 0; i < myArr6.length; i++) {
+    if (myArr6[i].indexOf('u') > -1) {
+        console.log(myArr6[i])
+    }
+    
+    };
+
+
+
