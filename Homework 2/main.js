@@ -137,7 +137,7 @@ var arr11 = [1, 2, 3, 4, 5];
 for (var i = 0; i < arr11.length; i++) {
     if (arr11[i] % 2 == 0) {
         console.log('Это четное число- ' + arr11[i])
-    };
+    }
     else {
         console.log('Это нечетное число- ' + arr11[i]);
     };
