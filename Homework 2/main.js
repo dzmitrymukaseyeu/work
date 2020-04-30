@@ -11,7 +11,7 @@ console.log(myArr1);
 
 
 // task 3 
-delete myArr1 [2];
+delete myArr1[2];
 console.log(myArr1);
 
 
@@ -24,7 +24,7 @@ var a = [1, 2, 2, 4];
 var t = [];
 
 for (var i = 0; i < a.length; i++) {
-    if (t.indexOf(a[i]) == -1) {
+    if (t.indexOf(a[i]) === -1) {
         t.push(a[i]);
     };
 };
@@ -33,37 +33,44 @@ console.log(t);
 
 // task 5
 var myArr3 = [1,2,9,12,'five','six','tomatoes','potatoes'];
-var a = myArr3;
 
-for (var i = 0; i < a.length; i++) {
-    if (typeof a[i] === 'number' && a[i] > 7) {
-     console.log(i + '-' + a[i]);
+
+for (var i = 0; i < myArr3.length; i++) {
+    var c = myArr3[i];
+
+    if (typeof c === 'number' && c > 7) {
+        console.log(i + ' - ' + c);
     }
-}
+};
 
 // task 6
-for (var i = 0; i < a.length; i++) {
-    if (typeof a[i] === 'string' && [i] > 5) {
-        console.log(i + '-' + a[i]);
-    }
+for (var i = 0; i < myArr3.length; i++) {
+    var d = myArr3[i];
+
+    if (typeof d === 'string' && d.length > 5) {
+        console.log(i + ' - ' + d);
+    };
 };
 
 // task 7 
 
 var myArr4 = [10, 456, 'world', 'ball', false];
-var b = myArr4;
 
-for (var i = 0; i < b.length; i++) {
-    if (typeof b[i] === 'string') {
-        console.log('This is sting- ' + b[i]);
+
+for (var i = 0; i < myArr4.length; i++) {
+    var b = myArr4[i];
+
+    if (typeof b === 'string') {
+        console.log('This is sting - ' + b);
     }
-    else if (typeof b[i] === 'number') {
-        console.log('This is number- ' + b[i]);        
+    else if (typeof b === 'number') {
+        console.log('This is number - ' + b);
     }
     else {
-        console.log('This is some type- ' + b[i]);
+        console.log('This is some type - ' + b);
     };
 };
+
 
 
 // task 8 
@@ -94,7 +101,7 @@ var myArr5 = [
 
 for (var i = 0; i < myArr5.length; i++) {
     if (myArr5[i].isHidden !== true) {
-        console.log('message- ' + myArr5[i].message);
+        console.log('message - ' + myArr5[i].message);
     }
 };
 
@@ -112,7 +119,7 @@ for (var i = 0; i < arr.length; i++) {
     var value = arr[i];
 
     value.titleUppercased = value.title.toUpperCase();
-    newArr.push(arr[i]);
+    newArr.push(value);
 
 }
 
@@ -126,20 +133,20 @@ var myArr6 = ['winter','summer','autumn','spring','column'] ;
 for (var i = 0; i < myArr6.length; i++) {
     if (myArr6[i].indexOf('u') > -1) {
         console.log(myArr6[i])
-    }
-    
     };
+    
+};
 
 
 //task 11 
 var arr11 = [1, 2, 3, 4, 5];
 
 for (var i = 0; i < arr11.length; i++) {
-    if (arr11[i] % 2 == 0) {
-        console.log('Это четное число- ' + arr11[i])
+    if (arr11[i] % 2 === 0) {
+        console.log('Это четное число - ' + arr11[i])
     }
     else {
-        console.log('Это нечетное число- ' + arr11[i]);
+        console.log('Это нечетное число - ' + arr11[i]);
     };
 };
 
@@ -157,9 +164,7 @@ function myFunc2(func) {
     arr12.push(func(8));
 
     return arr12;
-}
-
-myFunc2(myFunc1);
+};
 
 console.log(myFunc2(myFunc1));
 
