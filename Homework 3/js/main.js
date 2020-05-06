@@ -1,5 +1,4 @@
 var bod = document.body;
-
 var btn = document.querySelector('._toggle');
 var clickHandler = function() {
 
@@ -23,4 +22,22 @@ btn.addEventListener('click', clickHandler);
     else {
         tx.innerText = 'This is not a number';
     }
-})(7);
+})(4);
+
+
+var elem = document.getElementsByClassName('l-tasks__span');
+var btn = document.querySelector('._remove');
+
+var clickHandler = function() {  
+
+    if (bod.classList.contains('_color-scheme-light')){
+        elem[0].remove();
+    }
+    else {
+        elem[--elem.length].remove();
+    };
+
+    btn.removeEventListener('click', clickHandler);
+};
+
+btn.addEventListener('click', clickHandler);
