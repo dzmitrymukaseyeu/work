@@ -1,35 +1,21 @@
-
-
-.conteiner {
-	max-width: 768px;
-	margin: 0 auto;
-	padding: 0 20px;
-}
-
-
-
 body {
     background-color:#e9b000;
     padding-top: 40px;
 }
 
-
-
 .b-tasks {
     background-color:#9b2837;
     padding: 20px;
-
-
+    max-width: 650px;
+    margin: 0 auto;
 } 
 
-.l-tasks li:nth-of-type(2) {
+.l-tasks .l-tasks__item:nth-of-type(2) {
     border-top: 2px dashed #c3c1c1;
     border-bottom: 2px dashed #c3c1c1;
     margin: 20px 0;
     padding: 20px 0;
 } 
-
-
 
 .l-tasks__item {
     display: block;
@@ -56,7 +42,6 @@ body {
     background-color: #f9f9f9;
 }
 
-
 ._color-scheme-light .l-tasks__btn {
     background-color:#555354;
     color: #d4d4d4;    
@@ -66,7 +51,7 @@ body {
     background-color: #d3af57;  
 }
 
-._color-scheme-light .l-tasks li:nth-of-type(2) {
+._color-scheme-light .l-tasks .l-tasks__item:nth-of-type(2) {
     border-top: 2px dashed #898989;
     border-bottom: 2px dashed #898989;
 }

@@ -1,22 +1,31 @@
-var bod = document.body;
-var btn = document.querySelector('._toggle');
-var clickHandler = function() {
-
-    bod.classList.toggle('_color-scheme-light');
-
+var body = document.body;
+var btnToogle = document.querySelector('.l-tasks__btn._toggle');
+var spansArr = document.getElementsByClassName('l-tasks__span');
+var btnRemove = document.querySelector('.l-tasks__btn._remove');
+var onToggleScheme = function() {
+    body.classList.toggle('_color-scheme-light');
+};
+var onRemoveSpan = function () {
+    if (body.classList.contains('_color-scheme-light')) {
+        spansArr[0].remove();
+    }
+    else {
+        spansArr[--spansArr.length].remove();
+    };
+    btnRemove.removeEventListener('click', onRemoveSpan);
 };
 
-btn.addEventListener('click', clickHandler);
-
+btnRemove.addEventListener('click', onRemoveSpan);
+btnToogle.addEventListener('click', onToggleScheme);
 
 (function (num) {
     var tx = document.getElementsByClassName('l-tasks__item-text')[0];
     if (typeof num === 'number') {
         if (num % 2 === 0) {
-            tx.innerText = `Number ${num} is even`;
+            tx.innerText = 'Number '+ num +' is even';
         }
         else {
-            tx.innerText = `Number ${num} is odd`;
+            tx.innerText = 'Number ' + num + ' is odd';
         }
     }
     else {
@@ -25,19 +34,3 @@ btn.addEventListener('click', clickHandler);
 })(4);
 
 
-var elem = document.getElementsByClassName('l-tasks__span');
-var btn = document.querySelector('._remove');
-
-var clickHandler = function() {  
-
-    if (bod.classList.contains('_color-scheme-light')){
-        elem[0].remove();
-    }
-    else {
-        elem[--elem.length].remove();
-    };
-
-    btn.removeEventListener('click', clickHandler);
-};
-
-btn.addEventListener('click', clickHandler);
