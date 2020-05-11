@@ -20,17 +20,18 @@ btnToogle.addEventListener('click', onToggleScheme);
 
 (function (num) {
     var tx = document.getElementsByClassName('l-tasks__item-text')[0];
-    if (typeof num === 'number') {
-        if (num % 2 === 0) {
-            tx.innerText = 'Number '+ num +' is even';
-        }
-        else {
-            tx.innerText = 'Number ' + num + ' is odd';
-        }
+    var type = 'odd';
+
+    if (typeof num !== 'number') {
+        return tx.innerText = 'This is not a number';
     }
-    else {
-        tx.innerText = 'This is not a number';
+
+    if (num % 2 === 0) {
+        type = 'even'
     }
-})(4);
+
+    tx.innerText = 'Number ' + num + ' is ' + type;
+
+})(9);
 
 
