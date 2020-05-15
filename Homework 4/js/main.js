@@ -4,6 +4,8 @@ var bUniversePlanet = document.querySelector('.b-universe__planet');
 bUniverse.addEventListener( 'click', function(e) {
     var x = e.offsetX - bUniversePlanet.offsetWidth / 2;
     var y = e.offsetY - bUniversePlanet.offsetHeight / 2;
+    var limitX = bUniverse.offsetWidth - bUniversePlanet.offsetWidth;
+    var limitY = bUniverse.offsetHeight - bUniversePlanet.offsetHeight;
 
     if (bUniversePlanet.style.display === 'none') {
         return bUniversePlanet.style.display = '';
@@ -13,12 +15,12 @@ bUniverse.addEventListener( 'click', function(e) {
         return bUniversePlanet.style.display = 'none';
     };
 
-    if (x + bUniversePlanet.offsetWidth > bUniverse.offsetWidth) {
-        x = bUniverse.offsetWidth - bUniversePlanet.offsetWidth;
+    if (x > limitX) {
+        x = limitX;
     };
 
-    if (y + bUniversePlanet.offsetHeight > bUniverse.offsetHeight) {
-        y = bUniverse.offsetHeight - bUniversePlanet.offsetHeight;
+    if (y > limitY) {
+        y = limitY;
     };
 
     if (x < 0) {
@@ -27,7 +29,7 @@ bUniverse.addEventListener( 'click', function(e) {
 
     if (y < 0) {
         y = 0;
-    };
+    }; 
 
     bUniversePlanet.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 });
