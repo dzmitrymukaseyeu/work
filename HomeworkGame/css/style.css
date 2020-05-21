@@ -18,6 +18,7 @@ body {
 	position: absolute;
 	width: 100px;
 	height: 100px;
+	pointer-events: none;
 }
 
 .b-shooter__img-aim {
