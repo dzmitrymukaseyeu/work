@@ -32,18 +32,18 @@ body.addEventListener('keydown', function (e) {
         alert ('Загрузите массив, пожалуйста!');
     };
     
-    if (e.code === 'ArrowRight' && counter < colors.length - 1){
+    if (isRightKey && counter < colors.length - 1){
         body.style.backgroundColor = colors[++counter];
 
-    } else if (e.code === 'ArrowRight' && counter === colors.length - 1) {
+    } else if (isRightKey && counter === colors.length - 1) {
         counter = 0
         body.style.backgroundColor = colors[counter];
     };
 
-    if (e.code === 'ArrowLeft' && counter <= colors.length - 1 && counter > 0) {
+    if (isLeftKey && counter <= colors.length - 1 && counter > 0) {
         body.style.backgroundColor = colors[--counter];
 
-    } else if (e.code === 'ArrowLeft' && counter <= 0 ) {
+    } else if (isLeftKey && counter <= 0 ) {
         counter = colors.length - 1;
         body.style.backgroundColor = colors[counter];
     };
