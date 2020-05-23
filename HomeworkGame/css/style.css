@@ -15,10 +15,15 @@ body {
 }
 
 .b-shooter__aim {
+	top: 0;
+	left: 0;
 	position: absolute;
 	width: 100px;
 	height: 100px;
 	pointer-events: none;
+	transform: translate(200px,200px);
+	transition: transform .2s ease-out;
+
 }
 
 .b-shooter__img-aim {
