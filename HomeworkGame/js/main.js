@@ -8,13 +8,13 @@ bShooter.addEventListener('click', function (e) {
     var y = e.offsetY - bShooterAim.offsetHeight / 2;
     var limitX = bShooter.offsetWidth - bShooterAim.offsetWidth;
     var limitY = bShooter.offsetHeight - bShooterAim.offsetHeight;
-
     if (x > limitX) {
-        x = limitX
-    } else if (y > limitY) {
-        y = limitY
+        x = limitX;
     } else if (x < 0) {
         x = 0;
+    };
+    if (y > limitY) {
+        y = limitY;
     } else if (y < 0) {
         y = 0;
     }; 
@@ -24,16 +24,13 @@ bShooter.addEventListener('click', function (e) {
 });
 
 body.addEventListener('keydown', function(e) {
-    
     if (e.code === 'Enter') {    
         bShooterImgAim.style.transform = 'scale(.9)';
     }
 });
 
 body.addEventListener('keyup', function (e) {
-
     if (e.code === 'Enter') {
         bShooterImgAim.style.transform = '';
     }
-
 });
