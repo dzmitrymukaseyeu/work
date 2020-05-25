@@ -19,14 +19,15 @@ for (var prop in obj) {
 
 // Task3
 
-function printSquareRoot (num, func) {
-     function func (num) {
-        return num * num;
-    };
-
-    console.log(func(num));
+function printSquareRoot(num, func) {
+    func(num)
 };
-printSquareRoot(2);
+
+function func(num) {
+    console.log(Math.sqrt(num));
+};
+
+printSquareRoot(4, func);
 
 
 
@@ -34,7 +35,6 @@ printSquareRoot(2);
 
 
 var btn = document.querySelector('button');
-console.log(btn);
 var count = 0;
 
 btn.addEventListener('click', function(e) {
@@ -43,11 +43,10 @@ btn.addEventListener('click', function(e) {
         function sumClick () {
             return function() {
                 return ++count;
-            }
+            };
         };
         var clicer = sumClick();
         btn.innerText = 'Количество нажатий: ' + clicer();
-        
-    }
+    };
 
-})
+});
