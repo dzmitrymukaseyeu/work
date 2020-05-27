@@ -2,6 +2,7 @@ var body = document.body;
 var bShooter = document.querySelector('.b-shooter');
 var bShooterAim = document.querySelector('.b-shooter__aim');
 var bShooterImgAim = document.querySelector('.b-shooter__img-aim');
+var ghost = document.querySelector('.b-shooter__img-ghost');
 
 bShooter.addEventListener('click', function (e) {
     var x = e.offsetX - bShooterAim.offsetWidth / 2;
@@ -31,6 +32,67 @@ body.addEventListener('keydown', function(e) {
 
 body.addEventListener('keyup', function (e) {
     if (e.code === 'Enter') {
+        var coordShooter = bShooterImgAim.getBoundingClientRect();
+        var aimCenterX = coordShooter.x + coordShooter.width / 2;
+        var aimCenterY = coordShooter.y + coordShooter.height / 2;
+        
         bShooterImgAim.style.transform = '';
-    }
+
+        console.log(aimCenterX, aimCenterY);
+    };
+
+
+
 });
+
+
+function setRandomCoords () {
+    var x = Math.floor(Math.random() * (bShooter.offsetWidth - ghost.offsetWidth / 2));
+    var y = Math.floor(Math.random() * (bShooter.offsetHeight - ghost.offsetHeight / 2));
+    var limitX = bShooter.offsetWidth - ghost.offsetWidth;
+    var limitY = bShooter.offsetHeight - ghost.offsetHeight;
+
+    if (x > limitX) {
+        x = limitX;
+    } else if (x < 0) {
+        x = 0;
+    };
+
+    if (y > limitY) {
+        y = limitY;
+    } else if (y < 0) {
+        y = 0;
+    }; 
+
+
+    ghost.style.left = x + 'px';
+    ghost.style.top = y + 'px';
+
+    console.log(x);
+
+    if (ghost.style.display === 'none') {
+         return ghost.style.display = '';
+    }
+
+};
+
+
+var st = setInterval(f, 3000);
+
+function f () {
+
+
+    if (ghost.style.display = 'none') {
+       ghost.style.display = 'block';
+    }
+
+    else if (ghost.style.display = 'block') {
+        alert(1);
+        ghost.style.display === 'none';
+    }
+
+    setRandomCoords();
+}
+
+
+
