@@ -29,24 +29,45 @@ function func(num) {
 
 printSquareRoot(4, func);
 
+// Task4 
+function outer() {
+    var arr = [];
 
+    function inner(arg) {
+        arr.push(arg);
+        console.log(arr);
+
+        if (arr.length === 5) {
+        arr = [];
+        };
+
+    };
+    return inner;
+}
+var getCounter = outer();
+getCounter(1);
+getCounter(2);
+getCounter(3);
+getCounter(4);
+getCounter(5);
+getCounter(6);
+getCounter(7);
+getCounter(8);
+getCounter(9);
+getCounter(10);
 
 // Task5 
 
 
 var btn = document.querySelector('button');
-var count = 0;
 
-btn.addEventListener('click', function(e) {
-    if (e.target.tagName.toLowerCase() === 'button') {
-
-        function sumClick () {
-            return function() {
-                return ++count;
-            };
+    function sumClick() {
+        var count = 0;
+    return function (e) {
+            e.currentTarget.innerText = 'Количество нажитий: '+ ++count;                
         };
-        var clicer = sumClick();
-        btn.innerText = 'Количество нажатий: ' + clicer();
     };
 
-});
+var clicer = sumClick();
+
+btn.addEventListener('click', clicer);
