@@ -34,16 +34,16 @@ function outer() {
     var arr = [];
 
     function inner(arg) {
-        arr.push(arg);
-        console.log(arr);
-
         if (arr.length === 5) {
-        arr = [];
+            arr = [];
         };
 
+        arr.push(arg);
+        console.log(arr);
     };
     return inner;
-}
+};
+
 var getCounter = outer();
 getCounter(1);
 getCounter(2);
@@ -63,11 +63,10 @@ var btn = document.querySelector('button');
 
     function sumClick() {
         var count = 0;
-    return function (e) {
+
+        return function (e) {
             e.currentTarget.innerText = 'Количество нажитий: '+ ++count;                
         };
     };
 
-var clicer = sumClick();
-
-btn.addEventListener('click', clicer);
+btn.addEventListener('click', sumClick());
