@@ -41,8 +41,6 @@ body.addEventListener('keyup', function (e) {
         console.log(aimCenterX, aimCenterY);
     };
 
-
-
 });
 
 
@@ -64,35 +62,22 @@ function setRandomCoords () {
         y = 0;
     }; 
 
-
     ghost.style.left = x + 'px';
     ghost.style.top = y + 'px';
 
     console.log(x);
-
-    if (ghost.style.display === 'none') {
-         return ghost.style.display = '';
-    }
-
 };
 
+setInterval(f, 3000);
 
-var st = setInterval(f, 3000);
+function f() {
 
-function f () {
-
-
-    if (ghost.style.display = 'none') {
-       ghost.style.display = 'block';
-    }
-
-    else if (ghost.style.display = 'block') {
-        alert(1);
-        ghost.style.display === 'none';
-    }
+    if (ghost.style.display === 'none') {
+        return ghost.style.display = '';
+    };
 
     setRandomCoords();
-}
+};
 
 
 
