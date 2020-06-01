@@ -35,6 +35,22 @@ const arr = [
     }
 ];
 
+let newObj = arr.reduce(function(acc,item) {
+    if (item.country.toLowerCase() === 'usa') {
+        acc.usa.push(item.city);
+    } else {
+        acc.europe.push(item.city);
+    }
+    return acc;
+
+},{
+  usa: [],
+  europe: []
+})
+
+console.log(newObj);
+
+
 
 // task 3 
 
@@ -60,6 +76,30 @@ function carr (f) {
 let carriedSum = carr(sum);
 console.log(carriedSum(5)(2));
 
+// task 5 
+
+let mathNum = {
+    num : 0, 
+    setNum(arg) {
+        this.num = arg;
+        return this;
+    },
+    plus(arg) {
+        this.num += arg;
+        return this;
+    },
+    minus(arg) {
+        this.num -= arg;
+        return this;
+    },
+    showNum() {
+        console.log(this.num);
+        return this;
+    }
+};
+
+mathNum.setNum(10).plus(7).minus(2).showNum();
+
 
 
 // task 7 
@@ -80,7 +120,5 @@ const obj1 = {
     lastName: 'Kalligan',
     job: 'musician'
 };
-
-
 
 obj.printInfo.call(obj1);
