@@ -2,12 +2,8 @@
 
 // task 1 
 
-function getName(name) {
-    if (!name) {
-        console.log('Hello, %username%');
-    } else {
+function getName(name = '%username%') {
     console.log(`Hello, ${name}`);
-    };
 };
 
 getName();
@@ -36,17 +32,13 @@ const arr = [
 ];
 
 let newObj = arr.reduce(function(acc,item) {
-    if (item.country.toLowerCase() === 'usa') {
-        acc.usa.push(item.city);
-    } else {
-        acc.europe.push(item.city);
-    }
+    item.country.toLowerCase() === 'usa' ? acc.usa.push(item.city) : acc.europe.push(item.city);
     return acc;
 
 },{
   usa: [],
   europe: []
-})
+});
 
 console.log(newObj);
 
@@ -63,18 +55,10 @@ console.log(`Максимальный элемент массива (синта�
 
 function sum (arg1, arg2) {
     return arg1 + arg2;
-}
+};
 
-function carr (f) {
-    return function(a) {
-        return function(b){
-            return f(a, b);
-        }
-    }
-}
-
-let carriedSum = carr(sum);
-console.log(carriedSum(5)(2));
+let carriedSum = sum.bind(null, 10);
+console.log(carriedSum(2));
 
 // task 5 
 
@@ -100,7 +84,10 @@ let mathNum = {
 
 mathNum.setNum(10).plus(7).minus(2).showNum();
 
+// test 6 
 
+let { usa, europe } = newObj;
+console.log(usa, europe);
 
 // task 7 
 
