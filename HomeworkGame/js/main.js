@@ -58,7 +58,7 @@ body.addEventListener('keyup', function (e) {
                 bShooterImgFire.style.visibility = 'hidden';
                 ghost.style.transitionDuration = '';
                 ghost.style.transitionDelay ='';
-
+                ghost.style.opacity = '';
                 bShooterImgAim.style.display = '';
 
                 
@@ -102,6 +102,7 @@ function f() {
     };
     if (!ghost.style.opacity) {
         setRandomCoords();
+
     };
 };
 
