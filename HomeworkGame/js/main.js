@@ -3,6 +3,8 @@ var bShooter = document.querySelector('.b-shooter');
 var bShooterAim = document.querySelector('.b-shooter__aim');
 var bShooterImgAim = document.querySelector('.b-shooter__img-aim');
 var ghost = document.querySelector('.b-shooter__img-ghost');
+var bShooterImgFire = document.querySelector('.b-shooter__img-fire');
+var delayToReset = 500;
 
 bShooter.addEventListener('click', function (e) {
     var x = e.offsetX - bShooterAim.offsetWidth / 2;
@@ -35,10 +37,34 @@ body.addEventListener('keyup', function (e) {
         var coordShooter = bShooterImgAim.getBoundingClientRect();
         var aimCenterX = coordShooter.x + coordShooter.width / 2;
         var aimCenterY = coordShooter.y + coordShooter.height / 2;
-        
+        let coordGhost = ghost.getBoundingClientRect();
+
         bShooterImgAim.style.transform = '';
 
-        console.log(aimCenterX, aimCenterY);
+        console.log(aimCenterX, aimCenterY, coordGhost.left, coordGhost.right);
+
+        if ((aimCenterX <= coordGhost.right - 20 & aimCenterX >= coordGhost.left + 20) || (aimCenterY <= coordGhost.top -20 & aimCenterY >= coordGhost.bottom + 20)) {
+            bShooterImgFire.style.visibility = 'visible';
+            bShooterImgFire.style.opacity = '0';
+            bShooterImgFire.style.transitionDuration = `.${delayToReset * 0.6}s`;
+            bShooterImgFire.style.transitionDelay = `.${delayToReset * 0.4}s`;
+            ghost.style.transitionDuration = `.${delayToReset * 0.6}s`;
+            ghost.style.transitionDelay = `.${delayToReset * 0.4}s`;
+            ghost.style.opacity = '0';
+            bShooterImgAim.style.display = 'none';
+
+            setTimeout(() => {
+                bShooterImgFire.removeAttribute('style');
+                bShooterImgFire.style.visibility = 'hidden';
+                ghost.style.transitionDuration = '';
+                ghost.style.transitionDelay ='';
+
+                bShooterImgAim.style.display = '';
+
+                
+            }, delayToReset);
+        };
+
     };
 
 });
@@ -65,7 +91,6 @@ function setRandomCoords () {
     ghost.style.left = x + 'px';
     ghost.style.top = y + 'px';
 
-    console.log(x);
 };
 
 setInterval(f, 3000);
@@ -75,8 +100,9 @@ function f() {
     if (ghost.style.display === 'none') {
         return ghost.style.display = '';
     };
-
-    setRandomCoords();
+    if (!ghost.style.opacity) {
+        setRandomCoords();
+    };
 };
 
 
