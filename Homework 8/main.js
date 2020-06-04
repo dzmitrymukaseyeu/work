@@ -62,27 +62,27 @@ console.log(carriedSum(2));
 
 // task 5 
 
-let mathNum = {
-    num : 0, 
-    setNum(arg) {
-        this.num = arg;
-        return this;
-    },
-    plus(arg) {
-        this.num += arg;
-        return this;
-    },
-    minus(arg) {
-        this.num -= arg;
-        return this;
-    },
-    showNum() {
-        console.log(this.num);
-        return this;
+function setNum (arg) {
+    return {
+        plus: function (arg1) {
+            arg += arg1;
+            return this;
+        },
+        minus: function (arg1) {
+            arg -= arg1;
+            return this;
+        },
+        showNum: function() {
+            console.log(arg);
+            return this;
+        }      
     }
-};
+}
 
-mathNum.setNum(10).plus(7).minus(2).showNum();
+setNum(10).plus(7).minus(2).showNum();
+
+
+
 
 // test 6 
 
