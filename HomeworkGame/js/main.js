@@ -43,7 +43,7 @@ body.addEventListener('keyup', function (e) {
 
         console.log(aimCenterX, aimCenterY, coordGhost.left, coordGhost.right);
 
-        if ((aimCenterX <= coordGhost.right - 20 & aimCenterX >= coordGhost.left + 20) || (aimCenterY <= coordGhost.top -20 & aimCenterY >= coordGhost.bottom + 20)) {
+        if (aimCenterX <= coordGhost.right - 20 && aimCenterX >= coordGhost.left + 20 && aimCenterY >= coordGhost.top -20 && aimCenterY <= coordGhost.bottom + 20) {
             bShooterImgFire.style.visibility = 'visible';
             bShooterImgFire.style.opacity = '0';
             bShooterImgFire.style.transitionDuration = `.${delayToReset * 0.6}s`;
@@ -102,8 +102,7 @@ function f() {
     };
     if (!ghost.style.opacity) {
         setRandomCoords();
-
-    };
+    }
 };
 
 
