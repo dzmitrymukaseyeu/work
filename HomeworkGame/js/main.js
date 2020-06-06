@@ -11,11 +11,13 @@ bShooter.addEventListener('click', function (e) {
     var y = e.offsetY - bShooterAim.offsetHeight / 2;
     var limitX = bShooter.offsetWidth - bShooterAim.offsetWidth;
     var limitY = bShooter.offsetHeight - bShooterAim.offsetHeight;
+
     if (x > limitX) {
         x = limitX;
     } else if (x < 0) {
         x = 0;
     };
+
     if (y > limitY) {
         y = limitY;
     } else if (y < 0) {
@@ -23,7 +25,6 @@ bShooter.addEventListener('click', function (e) {
     }; 
 
     bShooterAim.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-
 });
 
 body.addEventListener('keydown', function(e) {
@@ -41,34 +42,31 @@ body.addEventListener('keyup', function (e) {
 
         bShooterImgAim.style.transform = '';
 
-        console.log(aimCenterX, aimCenterY, coordGhost.left, coordGhost.right);
+        if (
+            aimCenterX <= coordGhost.right - 20
+            && aimCenterX >= coordGhost.left + 20
+            && aimCenterY >= coordGhost.top -20
+            && aimCenterY <= coordGhost.bottom + 20
+        ) {
+            var animationProperties = `opacity: 0;
+                transition-duration: ${delayToReset * 0.6}ms;
+                transition-delay: ${delayToReset * 0.4}ms;`;
 
-        if (aimCenterX <= coordGhost.right - 20 && aimCenterX >= coordGhost.left + 20 && aimCenterY >= coordGhost.top -20 && aimCenterY <= coordGhost.bottom + 20) {
             bShooterImgFire.style.visibility = 'visible';
-            bShooterImgFire.style.opacity = '0';
-            bShooterImgFire.style.transitionDuration = `.${delayToReset * 0.6}s`;
-            bShooterImgFire.style.transitionDelay = `.${delayToReset * 0.4}s`;
-            ghost.style.transitionDuration = `.${delayToReset * 0.6}s`;
-            ghost.style.transitionDelay = `.${delayToReset * 0.4}s`;
-            ghost.style.opacity = '0';
+            bShooterImgFire.style.cssText += animationProperties;
+            ghost.style.cssText += animationProperties;
             bShooterImgAim.style.display = 'none';
 
-            setTimeout(() => {
+            setTimeout(function() {
                 bShooterImgFire.removeAttribute('style');
                 bShooterImgFire.style.visibility = 'hidden';
-                ghost.style.transitionDuration = '';
-                ghost.style.transitionDelay ='';
-                ghost.style.opacity = '';
                 bShooterImgAim.style.display = '';
-
-                
+                ghost.removeAttribute('style');
+                ghost.style.display = 'none';
             }, delayToReset);
         };
-
     };
-
 });
-
 
 function setRandomCoords () {
     var x = Math.floor(Math.random() * (bShooter.offsetWidth - ghost.offsetWidth / 2));
@@ -90,20 +88,20 @@ function setRandomCoords () {
 
     ghost.style.left = x + 'px';
     ghost.style.top = y + 'px';
-
 };
 
-setInterval(f, 3000);
-
-function f() {
+setInterval(function() {
+    if (ghost.style.transitionDelay) {
+        return;
+    };
 
     if (ghost.style.display === 'none') {
-        return ghost.style.display = '';
+        ghost.style.display = '';
     };
-    if (!ghost.style.opacity) {
-        setRandomCoords();
-    }
-};
+
+    setRandomCoords();
+}, 3000);
+
 
 
 
