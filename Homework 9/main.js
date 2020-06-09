@@ -1,4 +1,4 @@
-'use strick';
+'use strict';
 
 const requestUsers = function(cb) {
     const users = [
@@ -65,37 +65,45 @@ const requestCountries = function (cb) {
 
 
 
-requestNewArr = function (cb) {
-    let newArr;
 
-    setTimeout (function() {
-        cb(newArr);
-    }, 1000)
-    
+
+function createList() {
+    return document.createElement('ul');   
 };
 
+function createListItem(text1, text2, text3) {
+  const li = document.createElement('li');
+  li.innerText = `fistName: ${text1} , lastName: ${text2} , country: ${text3}`;
+  return li;
+};
 
-requestUsers (function(users){
+requestUsers(function (users) {
     console.log(users);
 
-    requestCountries (function (countries) {
+    requestCountries(function (countries) {
         console.log(countries);
+        let newArr = [];
 
-        requestNewArr (function (arr) {
-            let newArr = [];
-
-            for (let i = 0; i < users.length; i++) {
-                for (let el = 0; el < countries.length; el++) {
-                    if (users[i].id === countries[el].userId) {
-                        users[i].country = countries[el].country;
-                        newArr.push(users[i]);
-                    }
-                }
-            }
+        for (let i = 0; i < users.length; i++) {
+            for (let prop of countries) {
+                if (prop.userId === users[i].id) {
+                    users[i].country = prop.country;
+                    newArr.push(users[i]);
+                };
+            };
+        };
             console.log(newArr);
+
+        newArr.forEach(function (el) {
+            const ul = createList();
+            const li = createListItem(el.fistName, el.lastName, el.country);
+            ul.appendChild(li);
+            document.body.appendChild(ul);
         });
     });
 });
+
+
 
 
 
