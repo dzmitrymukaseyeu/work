@@ -13,13 +13,24 @@ function createListItem({ fistName, lastName, country }) {
     return li;
 };
 
+function printHtml(arr) {
+    const ul = createList();
+
+    arr.forEach(function (el) {
+        const li = createListItem(el);
+
+        ul.appendChild(li);
+    });
+    document.body.appendChild(ul);
+}
+
 requestUsers(function (users) {
     console.log(users);
 
     requestCountries(function (countries) {
         console.log(countries);
 
-        const ul = createList();
+
         const newArr = users.map(elem => {
             const { country } = countries.find(el => el.userId === elem.id);
 
@@ -30,13 +41,7 @@ requestUsers(function (users) {
         });
         console.log(newArr);
 
-        newArr.forEach(function (el) {
-            const li = createListItem(el);
-
-            ul.appendChild(li);
-        });
-
-        document.body.appendChild(ul);
+        printHtml(newArr);
     });
 });
 
