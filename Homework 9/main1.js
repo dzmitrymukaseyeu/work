@@ -1,7 +1,9 @@
 'use strict';
 
+const isError = () => Math.floor(Math.random() * 10) < 5;
 
-const requestUsers = function (cb) {
+
+const requestUsers = function (success,error) {
     const users = [
         {
             id: 1,
@@ -31,11 +33,18 @@ const requestUsers = function (cb) {
     ];
 
     setTimeout(function () {
-        cb(users);
+        if (isError()) {
+            error({
+                code: 500,
+                text: 'Error Server'
+            }) ;
+        } else {
+            success(users);
+        }
     }, 1000);
 };
 
-const requestCountries = function (cb) {
+const requestCountries = function (success, error) {
     const countries = [
         {
             userId: 44,
@@ -60,9 +69,18 @@ const requestCountries = function (cb) {
     ];
 
     setTimeout(function () {
-        cb(countries);
+        if (isError()) {
+            error({
+                code: 500,
+                text: 'Error Server'
+            });
+        } else {
+            success(countries);
+        }
     }, 1000);
 }
+
+
 
 
 export { requestUsers, requestCountries }
