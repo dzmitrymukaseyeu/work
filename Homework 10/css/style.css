@@ -1,0 +1,47 @@
+body {
+    background-color: pink;
+    padding: 50px 0;
+    font-family: sans-serif;
+}
+
+.conteiner {
+    max-width: 1270px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.outer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -30px;
+
+}
+
+.user {
+    padding: 0 30px;
+    flex-basis: 25%;
+}
+
+.user:nth-child(n+5){
+    margin-top: 40px;
+}
+
+.user__inner {
+    border: 1px solid #000000;
+    border-radius: 3%;
+    padding-top: 10px;
+    text-align: center;
+    background-color: cadetblue;
+}
+
+.user__inner-info {
+    text-align: center;
+    padding: 10px;
+}
+
+
+img {
+    height: 128px;
+    width: 128px;
+    border-radius: 50%;
+}
