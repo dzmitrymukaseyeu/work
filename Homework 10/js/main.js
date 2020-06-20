@@ -56,11 +56,10 @@ requestForUser(
 );
 
 function AllUsers () {
-    const div = document.createElement('div')
+    const conteiner = document.getElementsByClassName('conteiner')[0];
     const ul = document.createElement('ul');
     let arrAllUsers = arrMale.concat(arrFemale);
 
-    div.classList.add('conteiner');
     ul.classList.add('outer');
 
     console.log(arrAllUsers);
@@ -77,10 +76,12 @@ function AllUsers () {
                 </div>
             </div>
         `;
-        div.appendChild(ul);
         ul.appendChild(li);
-        document.body.appendChild(div);
-        })
+    })
+
+    conteiner.appendChild(ul);
+    document.getElementsByClassName('preloader')[0].remove();
+    
 };
 
 
@@ -112,3 +113,36 @@ function AllUsers () {
 //     },
 //     '&gender=male'
 // );
+
+// const request = function(url) {
+//     return new Promise((resolve, reject) => {
+
+//         const xhr = new XMLHttpRequest();
+
+//         xhr.open('GET', "https://randomuser.me/api/?results=3" + url);
+
+//         xhr.onreadystatechange = function () {
+//             if (xhr.readyState === 4) {
+//                 if (xhr.status >= 200 && xhr.status < 300) {
+//                     resolve(JSON.parse(xhr.response));
+//                 } else {
+//                     reject({
+//                         code: xhr.status,
+//                         message: xhr.responseText
+//                     })
+//                 };
+//             };
+//         };
+//         xhr.send();
+//     });
+// };
+
+
+// request('&gender=female').then(
+//     function(res){
+//         console.log(res);
+//     },
+//     function(err){
+//         console.log(err);
+//     }
+// )

@@ -1,5 +1,5 @@
 body {
-    background-color: pink;
+    background-color: #7ab4cc;
     padding: 50px 0;
     font-family: sans-serif;
 }
@@ -20,6 +20,7 @@ body {
 .user {
     padding: 0 30px;
     flex-basis: 25%;
+    overflow: hidden;
 }
 
 .user:nth-child(n+5){
@@ -31,7 +32,7 @@ body {
     border-radius: 3%;
     padding-top: 10px;
     text-align: center;
-    background-color: cadetblue;
+    background-color: #ebca61;
 }
 
 .user__inner-info {
@@ -40,8 +41,18 @@ body {
 }
 
 
-img {
+.user__inner img {
     height: 128px;
     width: 128px;
     border-radius: 50%;
 }
+
+.preloader {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(97, 100, 97, 0.7);
+    width: 1270px;
+    height: 450px;
+}
+
