@@ -1,20 +1,27 @@
-var body = document.body;
-var bShooter = document.querySelector('.b-shooter');
-var bShooterAim = document.querySelector('.b-shooter__aim');
-var bShooterImgAim = document.querySelector('.b-shooter__img-aim');
-var ghost = document.querySelector('.b-shooter__img-ghost');
-var bShooterImgFire = document.querySelector('.b-shooter__img-fire');
-var delayToReset = 500;
+const body = document.body;
+const bShooter = document.querySelector('.b-shooter');
+const bShooterAim = document.querySelector('.b-shooter__aim');
+const bShooterImgAim = document.querySelector('.b-shooter__img-aim');
+const ghost = document.querySelector('.b-shooter__img-ghost');
+const bShooterImgFire = document.querySelector('.b-shooter__img-fire');
+const delayToReset = 500;
+const healthIcon = document.getElementsByClassName('b-shooter__health-icon');
+const progressIcon = document.getElementsByClassName('b-shooter__progress-icon');
+let isGameOver = false;
 
 bShooter.addEventListener('click', function (e) {
     if (ghost.style.animationPlayState === 'paused') {
         return;
     }
 
-    var x = e.offsetX - bShooterAim.offsetWidth / 2;
-    var y = e.offsetY - bShooterAim.offsetHeight / 2;
-    var limitX = bShooter.offsetWidth - bShooterAim.offsetWidth;
-    var limitY = bShooter.offsetHeight - bShooterAim.offsetHeight;
+    if (isGameOver === true) {
+        return;
+    }
+
+    let x = e.offsetX - bShooterAim.offsetWidth / 2;
+    let y = e.offsetY - bShooterAim.offsetHeight / 2;
+    let limitX = bShooter.offsetWidth - bShooterAim.offsetWidth;
+    let limitY = bShooter.offsetHeight - bShooterAim.offsetHeight;
 
     if (x > limitX) {
         x = limitX;
@@ -39,9 +46,9 @@ body.addEventListener('keydown', function(e) {
 
 body.addEventListener('keyup', function (e) {
     if (e.code === 'Enter') {
-        var coordShooter = bShooterImgAim.getBoundingClientRect();
-        var aimCenterX = coordShooter.x + coordShooter.width / 2;
-        var aimCenterY = coordShooter.y + coordShooter.height / 2;
+        let coordShooter = bShooterImgAim.getBoundingClientRect();
+        let aimCenterX = coordShooter.x + coordShooter.width / 2;
+        let aimCenterY = coordShooter.y + coordShooter.height / 2;
         let coordGhost = ghost.getBoundingClientRect();
 
         bShooterImgAim.style.transform = '';
@@ -52,7 +59,7 @@ body.addEventListener('keyup', function (e) {
             && aimCenterY >= coordGhost.top - 20
             && aimCenterY <= coordGhost.bottom + 20
         ) {
-            var animationProperties = `opacity: 0;
+            let animationProperties = `opacity: 0;
                 transition-duration: ${delayToReset * 0.6}ms;
                 transition-delay: ${delayToReset * 0.4}ms;`;
 
@@ -75,11 +82,11 @@ body.addEventListener('keyup', function (e) {
 });
 
 function setRandomCoords () {
-    var limitX = bShooter.offsetWidth - ghost.offsetWidth;
-    var limitY = bShooter.offsetHeight - ghost.offsetHeight;
+    let limitX = bShooter.offsetWidth - ghost.offsetWidth;
+    let limitY = bShooter.offsetHeight - ghost.offsetHeight;
 
-    var x = Math.floor(Math.random() * (limitX + 1));
-    var y = Math.floor(Math.random() * (limitY + 1));
+    let x = Math.floor(Math.random() * (limitX + 1));
+    let y = Math.floor(Math.random() * (limitY + 1));
 
     ghost.style.left = x + 'px';
     ghost.style.top = y + 'px';
@@ -100,4 +107,26 @@ setInterval(function() {
 
 
 
+function markLifeStatus () {
+    for (let i = 0; i < healthIcon.length; i++) {
+        i.classList.add('user__inner')
+        
+        
+    }
+}
+
+
+function markProgress() {
+    for (let i = 0; i < progressIcon.length; i++) {
+
+        if (!progressIcon[i].classList.contains('_progress-mod')) {
+            progressIcon[i].classList.add('_progress-mod');
+            break;
+        };
+
+        if (i === progressIcon.length - 1) {
+            isGameOver = true;
+        };
+    }
+}
 

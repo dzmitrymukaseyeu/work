@@ -66,10 +66,17 @@ body {
 
 .b-shooter__progress-icon {
 	width: 27px;
+	transition: opacity 1s ease-out;
 }
 
 .b-shooter__progress-icon:nth-child(n+2) {
 	margin-top: 21px;
+}
+
+
+._progress-mod {
+	opacity: 0.2;
+	transform: rotate(180deg);
 }
 
 .b-shooter__health {
