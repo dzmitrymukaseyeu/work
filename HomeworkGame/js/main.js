@@ -8,8 +8,12 @@ const delayToReset = 500;
 const healthIcon = document.getElementsByClassName('b-shooter__health-icon');
 const progressIcon = document.getElementsByClassName('b-shooter__progress-icon');
 let isGameOver = false;
+const bShooterHealth = document.querySelector('.b-shooter__health');
+const bShooterGameOver = document.querySelector('.b-shooter__game-over');
+const bShooterTitle = document.querySelector('.b-shooter__game-over-title');
 
 bShooter.addEventListener('click', function (e) {
+
     if (ghost.style.animationPlayState === 'paused') {
         return;
     }
@@ -38,14 +42,22 @@ bShooter.addEventListener('click', function (e) {
     bShooterAim.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 });
 
-body.addEventListener('keydown', function(e) {
-    if (e.code === 'Enter') {    
+document.body.addEventListener('keydown', function(e) {
+    e.preventDefault();
+
+    if (e.code === 'Space') {    
         bShooterImgAim.style.transform = 'scale(.9)';
     }
 });
 
-body.addEventListener('keyup', function (e) {
-    if (e.code === 'Enter') {
+document.body.addEventListener('keyup', function (e) {
+    e.preventDefault();
+
+    if (e.code === 'Enter' && isGameOver === true ) {
+        reset();   
+    }
+
+    if (e.code === 'Space') {
         let coordShooter = bShooterImgAim.getBoundingClientRect();
         let aimCenterX = coordShooter.x + coordShooter.width / 2;
         let aimCenterY = coordShooter.y + coordShooter.height / 2;
@@ -68,20 +80,24 @@ body.addEventListener('keyup', function (e) {
             ghost.style.cssText += animationProperties;
             bShooterImgAim.style.display = 'none';
             ghost.style.animationPlayState = 'paused';
-
+            markProgress();
 
             setTimeout(function() {
-                bShooterImgFire.removeAttribute('style');
-                bShooterImgFire.style.visibility = 'hidden';
-                bShooterImgAim.style.display = '';
-                ghost.removeAttribute('style');
-                ghost.style.display = 'none';
+                if(isGameOver === true) {
+                    dropTheCurtain(true)
+                } else {
+                    bShooterImgFire.removeAttribute('style');
+                    bShooterImgFire.style.visibility = 'hidden';
+                    bShooterImgAim.style.display = '';
+                    ghost.removeAttribute('style');
+                    ghost.style.display = 'none';
+                    }
             }, delayToReset);
         };
     };
 });
 
-function setRandomCoords () {
+function setRandomCoords() {
     let limitX = bShooter.offsetWidth - ghost.offsetWidth;
     let limitY = bShooter.offsetHeight - ghost.offsetHeight;
 
@@ -94,6 +110,10 @@ function setRandomCoords () {
 
 setInterval(function() {
 
+    if (ghost.style.display === '' && !ghost.style.animationPlayState) {
+        markLifeStatus();
+    }
+
     if (ghost.style.display === 'none') {
         ghost.style.display = '';
     };
@@ -103,30 +123,84 @@ setInterval(function() {
     }
 
     setRandomCoords();
+
 }, 3000);
 
+function markLifeStatus() {
 
+    if (bShooterHealth.classList.contains('_blinkHealthBar')) {
+        isGameOver = true;
+        dropTheCurtain(false)
+        return;
+    }
 
-function markLifeStatus () {
     for (let i = 0; i < healthIcon.length; i++) {
-        i.classList.add('user__inner')
-        
-        
+
+        if (!healthIcon[i].classList.contains('_minusHealth')) {
+            healthIcon[i].classList.add('_minusHealth');
+
+            if (i === healthIcon.length - 1) {
+                bShooterHealth.classList.add('_blinkHealthBar');
+            };
+
+            break;
+        };
     }
 }
-
 
 function markProgress() {
     for (let i = 0; i < progressIcon.length; i++) {
 
-        if (!progressIcon[i].classList.contains('_progress-mod')) {
-            progressIcon[i].classList.add('_progress-mod');
+        if (!progressIcon[i].classList.contains('_shootToGhost')) {
+            progressIcon[i].classList.add('_shootToGhost');
+
+            if (i === progressIcon.length - 1) {
+                isGameOver = true;
+            };
+
             break;
         };
+    }
+};
 
-        if (i === progressIcon.length - 1) {
-            isGameOver = true;
+if (bShooter.classList.contains('_lose')) {
+    bShooterTitle.innerHTML = "YOU LOSE";
+};
+
+function dropTheCurtain(isWin) {
+    if (isWin === true) {
+        bShooterTitle.innerHTML = "YOU WIN";
+        bShooter.classList.toggle('_win')
+    }
+    if (isWin === false) {
+        bShooterTitle.innerHTML = "YOU LOSE";
+        bShooter.classList.toggle('_lose');
+        ghost.removeAttribute('style');        
+    };
+};
+
+function reset() {
+    isGameOver = false;
+    bShooterHealth.classList.remove('_blinkHealthBar');
+    bShooter.classList.remove('_lose');
+    bShooter.classList.remove('_win');
+    bShooterImgAim.removeAttribute('style');
+    bShooterImgFire.removeAttribute('style');
+    bShooterImgFire.style.visibility = 'hidden';
+    ghost.removeAttribute('style');
+    ghost.style.display = 'none';
+
+    for (let i = 0; i < progressIcon.length; i++) {
+
+        if (progressIcon[i].classList.contains('_shootToGhost')) {
+            progressIcon[i].classList.remove('_shootToGhost');
+        };
+    }
+
+    for (let i = 0; i < healthIcon.length; i++) {
+
+        if (healthIcon[i].classList.contains('_minusHealth')) {
+            healthIcon[i].classList.remove('_minusHealth');
         };
     }
 }
-
