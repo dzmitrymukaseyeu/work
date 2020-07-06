@@ -127,8 +127,8 @@ body {
 
 ._win .b-shooter__progress, 
 ._lose .b-shooter__progress,
-._win .b-shooter__healt, 
-._lose .b-shooter__healt,
+._win .b-shooter__health, 
+._lose .b-shooter__health,
 ._lose .b-shooter__aim {
 	visibility: hidden;
 }

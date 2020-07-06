@@ -12,20 +12,15 @@ const bShooterHealth = document.querySelector('.b-shooter__health');
 const bShooterGameOver = document.querySelector('.b-shooter__game-over');
 const bShooterTitle = document.querySelector('.b-shooter__game-over-title');
 
-bShooter.addEventListener('click', function (e) {
+bShooter.addEventListener('click', (e) => {
+    const x = e.offsetX - bShooterAim.offsetWidth / 2;
+    const y = e.offsetY - bShooterAim.offsetHeight / 2;
+    const limitX = bShooter.offsetWidth - bShooterAim.offsetWidth;
+    const limitY = bShooter.offsetHeight - bShooterAim.offsetHeight;
 
-    if (ghost.style.animationPlayState === 'paused') {
+    if (ghost.style.animationPlayState === 'paused' || isGameOver) {
         return;
-    }
-
-    if (isGameOver === true) {
-        return;
-    }
-
-    let x = e.offsetX - bShooterAim.offsetWidth / 2;
-    let y = e.offsetY - bShooterAim.offsetHeight / 2;
-    let limitX = bShooter.offsetWidth - bShooterAim.offsetWidth;
-    let limitY = bShooter.offsetHeight - bShooterAim.offsetHeight;
+    };
 
     if (x > limitX) {
         x = limitX;
@@ -42,26 +37,26 @@ bShooter.addEventListener('click', function (e) {
     bShooterAim.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 });
 
-document.body.addEventListener('keydown', function(e) {
+document.body.addEventListener('keydown', (e) => {
     e.preventDefault();
 
     if (e.code === 'Space') {    
         bShooterImgAim.style.transform = 'scale(.9)';
-    }
+    };
 });
 
-document.body.addEventListener('keyup', function (e) {
+document.body.addEventListener('keyup', (e) => {
     e.preventDefault();
 
-    if (e.code === 'Enter' && isGameOver === true ) {
+    if (e.key === 'Enter' && isGameOver) {
         reset();   
     }
 
     if (e.code === 'Space') {
-        let coordShooter = bShooterImgAim.getBoundingClientRect();
-        let aimCenterX = coordShooter.x + coordShooter.width / 2;
-        let aimCenterY = coordShooter.y + coordShooter.height / 2;
-        let coordGhost = ghost.getBoundingClientRect();
+        const coordShooter = bShooterImgAim.getBoundingClientRect();
+        const aimCenterX = coordShooter.x + coordShooter.width / 2;
+        const aimCenterY = coordShooter.y + coordShooter.height / 2;
+        const coordGhost = ghost.getBoundingClientRect();
 
         bShooterImgAim.style.transform = '';
 
@@ -82,9 +77,9 @@ document.body.addEventListener('keyup', function (e) {
             ghost.style.animationPlayState = 'paused';
             markProgress();
 
-            setTimeout(function() {
-                if(isGameOver === true) {
-                    dropTheCurtain(true)
+            setTimeout(() => {
+                if(isGameOver) {
+                    dropTheCurtain(true);
                 } else {
                     bShooterImgFire.removeAttribute('style');
                     bShooterImgFire.style.visibility = 'hidden';
@@ -97,45 +92,38 @@ document.body.addEventListener('keyup', function (e) {
     };
 });
 
-function setRandomCoords() {
-    let limitX = bShooter.offsetWidth - ghost.offsetWidth;
-    let limitY = bShooter.offsetHeight - ghost.offsetHeight;
-
-    let x = Math.floor(Math.random() * (limitX + 1));
-    let y = Math.floor(Math.random() * (limitY + 1));
+const setRandomCoords = () => {
+    const limitX = bShooter.offsetWidth - ghost.offsetWidth;
+    const limitY = bShooter.offsetHeight - ghost.offsetHeight;
+    const x = Math.floor(Math.random() * (limitX + 1));
+    const y = Math.floor(Math.random() * (limitY + 1));
 
     ghost.style.left = x + 'px';
     ghost.style.top = y + 'px';
 };
 
-setInterval(function() {
-
-    if (ghost.style.display === '' && !ghost.style.animationPlayState) {
-        markLifeStatus();
-    }
+setInterval(() => {
+    if (ghost.style.animationPlayState === 'paused' || isGameOver) {
+        return;
+    };
 
     if (ghost.style.display === 'none') {
         ghost.style.display = '';
+        setRandomCoords();
+    } else {
+        setRandomCoords();
+        markLifeStatus(); 
     };
-
-    if (ghost.style.animationPlayState ==='paused') {
-        return;
-    }
-
-    setRandomCoords();
-
 }, 3000);
 
-function markLifeStatus() {
-
+const markLifeStatus = () => {
     if (bShooterHealth.classList.contains('_blinkHealthBar')) {
         isGameOver = true;
         dropTheCurtain(false)
         return;
-    }
+    };
 
     for (let i = 0; i < healthIcon.length; i++) {
-
         if (!healthIcon[i].classList.contains('_minusHealth')) {
             healthIcon[i].classList.add('_minusHealth');
 
@@ -145,12 +133,11 @@ function markLifeStatus() {
 
             break;
         };
-    }
+    };
 }
 
-function markProgress() {
+const markProgress = () => {
     for (let i = 0; i < progressIcon.length; i++) {
-
         if (!progressIcon[i].classList.contains('_shootToGhost')) {
             progressIcon[i].classList.add('_shootToGhost');
 
@@ -160,26 +147,23 @@ function markProgress() {
 
             break;
         };
-    }
+    };
 };
 
-if (bShooter.classList.contains('_lose')) {
-    bShooterTitle.innerHTML = "YOU LOSE";
-};
+const dropTheCurtain = (isWin) => {
+    if (isWin) {
+        bShooterTitle.innerText = "YOU WIN";
+        bShooter.classList.add('_win')
+    };
 
-function dropTheCurtain(isWin) {
-    if (isWin === true) {
-        bShooterTitle.innerHTML = "YOU WIN";
-        bShooter.classList.toggle('_win')
-    }
-    if (isWin === false) {
-        bShooterTitle.innerHTML = "YOU LOSE";
-        bShooter.classList.toggle('_lose');
+    if (!isWin) {
+        bShooterTitle.innerText = "YOU LOSE";
+        bShooter.classList.add('_lose');
         ghost.removeAttribute('style');        
     };
 };
 
-function reset() {
+const reset = () => {
     isGameOver = false;
     bShooterHealth.classList.remove('_blinkHealthBar');
     bShooter.classList.remove('_lose');
@@ -191,16 +175,14 @@ function reset() {
     ghost.style.display = 'none';
 
     for (let i = 0; i < progressIcon.length; i++) {
-
         if (progressIcon[i].classList.contains('_shootToGhost')) {
             progressIcon[i].classList.remove('_shootToGhost');
         };
-    }
+    };
 
     for (let i = 0; i < healthIcon.length; i++) {
-
         if (healthIcon[i].classList.contains('_minusHealth')) {
             healthIcon[i].classList.remove('_minusHealth');
         };
-    }
+    };
 }
