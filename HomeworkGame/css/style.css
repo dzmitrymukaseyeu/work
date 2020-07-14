@@ -38,7 +38,7 @@ body {
 	height: 120px;
 	pointer-events: none;
 	transition: opacity;
-	animation: ghost-movements 2s linear infinite;
+	animation: ghost-movements 2s infinite;
 	z-index: 2;
 }
 
@@ -80,7 +80,8 @@ body {
 
 .b-shooter__progress-icon {
 	width: 27px;
-	transition: opacity 1s ease-out;
+	transition: opacity .4s ease-out;
+	transition: transform .3s ease-out;
 }
 
 .b-shooter__progress-icon:nth-child(n+2) {
@@ -111,13 +112,13 @@ body {
 
 .b-shooter__health-icon {
 	width: 34px;
-	fill: #f44336;
-
+	fill:  #f44336;
+	transition: transform .3s ease-out, fill .2s ease-out;
 }
 
 ._minusHealth {
 	transform: scale(.85);
-	fill: rgba(90, 87, 98, .7)
+	fill:  rgba(90, 87, 98, .7);
 }
 
 
@@ -151,17 +152,17 @@ body {
 ._win .b-shooter__game-over, 
 ._lose .b-shooter__game-over {
 	opacity: 1;
-	pointer-events: all;
+	pointer-events: auto;
 	transition: opacity 2s ease-out;
 }
 
 ._win .b-shooter__game-over {
-	background-color: #fff;
+	background-color: rgba(255, 255, 255, .9);
 	color: black;
 }
 
 ._lose .b-shooter__game-over {
-	background-color: #000;
+	background-color: rgba(0, 0,0, .9);
 	color: #fff;
 }
 
@@ -216,4 +217,14 @@ body {
 	to {
 		transform: scale(17);
 	}
+}
+
+
+@keyframes health-color {
+	0% {
+		transform: scale(1,1) translateY(0);
+
+	100% {
+		transform: scale(1) translateY(0);
+	}				
 }

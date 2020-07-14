@@ -13,14 +13,14 @@ const bShooterGameOver = document.querySelector('.b-shooter__game-over');
 const bShooterTitle = document.querySelector('.b-shooter__game-over-title');
 
 bShooter.addEventListener('click', (e) => {
+    if (ghost.style.animationPlayState === 'paused' || isGameOver) {
+        return;
+    };
+
     const x = e.offsetX - bShooterAim.offsetWidth / 2;
     const y = e.offsetY - bShooterAim.offsetHeight / 2;
     const limitX = bShooter.offsetWidth - bShooterAim.offsetWidth;
     const limitY = bShooter.offsetHeight - bShooterAim.offsetHeight;
-
-    if (ghost.style.animationPlayState === 'paused' || isGameOver) {
-        return;
-    };
 
     if (x > limitX) {
         x = limitX;
@@ -34,7 +34,7 @@ bShooter.addEventListener('click', (e) => {
         y = 0;
     }; 
 
-    bShooterAim.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    bShooterAim.style.transform = `translate( ${x}px, ${y}px)`;
 });
 
 document.body.addEventListener('keydown', (e) => {
@@ -48,11 +48,16 @@ document.body.addEventListener('keydown', (e) => {
 document.body.addEventListener('keyup', (e) => {
     e.preventDefault();
 
-    if (e.key === 'Enter' && isGameOver) {
+    if ((e.code === 'Enter' || e.code === 'NumpadEnter') && isGameOver) {
         reset();   
     }
 
     if (e.code === 'Space') {
+
+        if (isGameOver) {
+            return;
+        };
+
         const coordShooter = bShooterImgAim.getBoundingClientRect();
         const aimCenterX = coordShooter.x + coordShooter.width / 2;
         const aimCenterY = coordShooter.y + coordShooter.height / 2;
@@ -80,7 +85,7 @@ document.body.addEventListener('keyup', (e) => {
             setTimeout(() => {
                 if(isGameOver) {
                     dropTheCurtain(true);
-                } else {
+                }   else {
                     bShooterImgFire.removeAttribute('style');
                     bShooterImgFire.style.visibility = 'hidden';
                     bShooterImgAim.style.display = '';
@@ -152,14 +157,14 @@ const markProgress = () => {
 
 const dropTheCurtain = (isWin) => {
     if (isWin) {
-        bShooterTitle.innerText = "YOU WIN";
+        bShooterTitle.innerText = 'YOU WIN';
         bShooter.classList.add('_win')
     };
 
     if (!isWin) {
-        bShooterTitle.innerText = "YOU LOSE";
+        bShooterTitle.innerText = 'YOU LOSE';
         bShooter.classList.add('_lose');
-        ghost.removeAttribute('style');        
+        ghost.removeAttribute('style'); 
     };
 };
 
